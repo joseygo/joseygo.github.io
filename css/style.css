@@ -1,0 +1,126 @@
+:root {
+  --bg: #ffffff;
+  --fg: #1a1a1a;
+  --muted: #6b7280;
+  --accent: #1a1a1a;
+  --border: #e5e7eb;
+  --banner-bg: #f4f4f2;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+.container { max-width: 720px; margin: 0 auto; padding: 0 20px; }
+a { color: var(--fg); text-decoration: none; }
+a:hover { opacity: 0.7; }
+
+/* ---------- Banner ---------- */
+.banner {
+  background: var(--banner-bg);
+  border-bottom: 1px solid var(--border);
+  padding: 48px 0 40px;
+  text-align: center;
+}
+.banner-img { max-width: 100%; max-height: 280px; border-radius: 8px; }
+.site-title {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+.banner-img-link + .site-title { margin-top: 16px; }
+.tagline {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+/* ---------- 文章列表 ---------- */
+.post-list { padding: 24px 0; }
+.post-entry { border-bottom: 1px solid var(--border); }
+.post-entry:last-child { border-bottom: none; }
+.post-link {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 24px 0;
+}
+.post-thumb {
+  width: 120px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 6px;
+  flex-shrink: 0;
+  background: var(--banner-bg);
+}
+.post-meta { min-width: 0; }
+.post-title {
+  margin: 0 0 4px;
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.post-info time { color: var(--muted); font-size: 13px; }
+.post-summary {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ---------- 文章页 ---------- */
+.post-single { padding: 40px 0; }
+.post-header { margin-bottom: 32px; }
+.post-single .post-title { font-size: 26px; margin: 0 0 8px; }
+.post-date { color: var(--muted); font-size: 14px; }
+.post-content img { max-width: 100%; border-radius: 6px; }
+.post-content blockquote {
+  margin: 1.2em 0;
+  padding: 0 0 0 16px;
+  border-left: 3px solid var(--border);
+  color: var(--muted);
+}
+.post-content pre {
+  background: #f6f8fa;
+  padding: 16px;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-size: 14px;
+}
+.post-content code { background: #f6f8fa; padding: 2px 5px; border-radius: 3px; font-size: 14px; }
+
+.post-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 48px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  font-size: 14px;
+}
+.post-nav .prev, .post-nav .next { color: var(--muted); }
+.post-nav .next { margin-left: auto; text-align: right; }
+
+/* ---------- 页脚 ---------- */
+.site-footer {
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 13px;
+  padding: 24px 0;
+  margin-top: 40px;
+}
+
+@media (max-width: 560px) {
+  .post-link { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .post-thumb { width: 100%; height: 160px; }
+}
