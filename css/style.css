@@ -62,11 +62,23 @@ a:hover { opacity: 0.7; }
   background: var(--banner-bg);
 }
 .post-meta { min-width: 0; }
+.post-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
 .post-title {
   margin: 0 0 4px;
   font-size: 19px;
   font-weight: 600;
   line-height: 1.4;
+}
+.post-title-row time {
+  color: var(--muted);
+  font-size: 13px;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 .post-info time { color: var(--muted); font-size: 13px; }
 .post-summary {
@@ -123,4 +135,5 @@ a:hover { opacity: 0.7; }
 @media (max-width: 560px) {
   .post-link { flex-direction: column; align-items: flex-start; gap: 10px; }
   .post-thumb { width: 100%; height: 160px; }
+  .post-title-row { flex-direction: column; gap: 2px; }
 }
