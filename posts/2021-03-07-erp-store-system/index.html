@@ -1,3 +1,208 @@
-<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>【教程】手把手从0~1搭建ERP店仓系统 · Josey的博客_拥抱AI中</title><link rel=icon type=image/svg+xml href=/images/logo.svg><link rel="shortcut icon" href=/favicon.ico><link rel=apple-touch-icon href=/images/apple-touch-icon.png><meta property="og:site_name" content="Josey的博客_拥抱AI中"><meta property="og:title" content="【教程】手把手从0~1搭建ERP店仓系统 · Josey的博客_拥抱AI中"><meta property="og:description" content="专注产品设计与数据科学，欢迎工作交流（V：Josey_here）。"><meta property="og:type" content="article"><meta property="og:url" content="https://joseygo.github.io/posts/2021-03-07-erp-store-system/"><meta property="og:image" content="https://joseygo.github.io/images/og-image.png"><meta name=twitter:card content="summary_large_image"><meta name=twitter:title content="【教程】手把手从0~1搭建ERP店仓系统 · Josey的博客_拥抱AI中"><meta name=twitter:description content="专注产品设计与数据科学，欢迎工作交流（V：Josey_here）。"><meta name=twitter:image content="https://joseygo.github.io/images/og-image.png"><link rel=stylesheet href=/css/style.css><link rel=alternate type=application/rss+xml title=Josey的博客_拥抱AI中 href=/index.xml></head><body><header class=banner><div class=container><div class=banner-inner><a href=/ class=site-logo-link aria-label=Josey的博客_拥抱AI中><img class=site-logo src=/images/logo.svg alt=Josey的博客_拥抱AI中></a><div class=banner-text><h1 class=site-title><a href=/>Josey的博客_拥抱AI中</a></h1><p class=tagline>专注产品设计与数据科学，欢迎工作交流（V：Josey_here）。</p></div></div></div></header><main class=container><article class=post-single><header class=post-header><h1 class=post-title>【教程】手把手从0~1搭建ERP店仓系统</h1></header><div class=post-content><h3 id=1前言>1.前言</h3><p>为了保持写文档的手感，这边撰写一个关于后端PM的入门教程；</p><p>背景设置：公司由原来的B2B2C电商业务，为完善线下体验闭环，增设线下店仓，提供收货寄存服务、商品展示供选；<br>因此，完成本前置仓ERP系统配套；</p><ul><li>本教程为入门使用，不考虑版本迭代、多人合作问题；</li><li>直奔需求分析、原型设计及需求说明撰写。</li></ul><p>系统性质：电商/新零售/O2O店仓ERP系统；<br>适用环境：PC浏览器；<br>使用人群：我司店员;</p><p>下图为店仓实体承载的核心业务：<br><img src=img12.png alt=配图01></p><h3 id=2-根据核心业务进行相应挖掘后理出框架>2. 根据核心业务，进行相应挖掘后理出框架</h3><pre tabindex=0><code>坚持从用户角度开始分析，请各位认可这个出场顺序；
-</code></pre><h3 id=211-寄存列表及新建寄存>2.1.1 寄存列表及新建寄存</h3><ul><li>发现问题：用户进店，如何查询是否有寄存货品？</li><li>解决方案：搭建【寄存列表】；</li></ul><h3 id=212-新增寄存>2.1.2 新增寄存</h3><p>发现问题：那么查询的寄存货品，是从哪里来的呢？</p><ul><li><p>解决方案：是送货到店的时候，录入的信息呀~<br>搭建【新增寄存】，用来录入寄存的到店时间、归属账户等；</p></li><li><p>寄存的货品信息来源，其实有很多种思路可尝试，例如送货师傅操作，自动入库之类，此处不展开讲，以最简单常见的案例入门；</p></li></ul><h3 id=221-货品列表>2.2.1 货品列表</h3><ul><li>发现问题：用户想买26个箱 位于 A区5号柜第2排上的牛奶，前置仓里有没有这么多现货？</li><li>解决方案：搭建【货品列表】；用于记录货品信息，例如5号柜第2排，【货品名】为【伊利纯牛奶28袋装】，【条码值】是【78327893945】，这件货品在本店的可售【库存】一共是78件；</li></ul><h3 id=222-新增货品>2.2.2 新增货品</h3><ul><li>发现问题：那供查询的信息，是如何得到的呢？</li><li>解决方案：可以通过【新增货品】功能来实现；</li></ul><h3 id=231-创建订单>2.3.1 创建订单</h3><ul><li>发现问题：假设流程顺畅，仓库里有26箱牛奶，根据用用户采购习惯，采用线下扫码支付，那么订单如何生成和统计？</li><li>解决方案：需搭载【创建订单】功能；</li></ul><h3 id=232-订单列表>2.3.2 订单列表</h3><ul><li>发现问题：那么之前产生过哪些订单呢？这么重要的信息一定要能够查询呀</li><li>解决方案：搭建【订单列表】功能；</li></ul><h3 id=241-补货申请>2.4.1 补货申请</h3><ul><li>发现问题：26箱牛奶被用户带走了，按照往常一天50箱的平均水准，库存很快就会影响营业额，如何处理？</li><li>解决方案：搭建【补货申请】功能，向总体申请货品配送；</li></ul><h3 id=242-补货申请列表>2.4.2 补货申请列表</h3><p>发现问题：相邻周期的补货需求往往相似，可以直接在系统里查询吗？这样就不需要每天一一统计了</p><ul><li>解决方案：搭建【补货列表】</li></ul><h3 id=251-入库>2.5.1 入库</h3><ul><li>发现问题：过了一天，公司送来了100箱牛奶；直接堆放到对应仓位，谁可能一直记得现在一共多少箱了？</li><li>解决方案：搭建【入库】功能，用来记录库存的增加；</li></ul><h3 id=252-出库>2.5.2 出库</h3><ul><li>发现问题：又过了一天，附近的一个体验店打来电话，说有个用户着急要10箱牛奶，但是他们没有那么多，找我们调剂一下？</li><li>解决方案：都是帮公司赚钱嘛，所以搭建【出库】功能，用来区分和订单售出不一样的库存减少；</li></ul><h3 id=26-账号登录退出>2.6 账号登录/退出</h3><ul><li>发现问题：体验店一般开在有人来往的地方，万一来个熊孩子，乱点系统搞幺蛾子怎么办？</li><li>解决方案：搭建【账号登录/退出】功能，有店员看着就好了，不用时退出；</li></ul><h3 id=3-pc版还是手机版>3 PC版还是手机版</h3><h3 id=31-前端形态>3.1 前端形态</h3><p>门店一般配置1台电脑，从普适性、更新门槛、技术成熟等角度考虑，web系统为第一考虑方案；</p><h3 id=32-系统框架尺寸>3.2 系统框架尺寸</h3><p>根据查询相关资料，主流办公屏幕，真的可能出现较窄的屏幕，故功能将集中在中部，约1200px即可，或者找UI同学寻求意见；</p><h3 id=33-设计顺序>3.3 设计顺序</h3><p>结合功能的重要性和使用频率，抽象出以下几个模块：<br>【登录/退出】【订单管理】【货品管理】【出入库】【补货】<br>看到这里，恭喜你完成了基础需求分析环节，继续加油；</p><h3 id=4-开始写prd>4 开始写PRD</h3><h3 id=41-prd文件框架>4.1 PRD文件框架</h3><p>打开AXURE，新建2个基础文件夹，分别用于存放业务流程图和原型页<br><img src=img01.png alt=配图01></p><ul><li>在业务流程图文件夹中，新建1个页面用于存放流程图，便于程序们爸爸们理解业务，另1个文件夹放上一节总结的5个模块的内容，如下图；<br><img src=img06.png alt=配图01></li><li>创建一个母版，画出系统公共框架，以便重复调用<br><img src=img05.png alt=配图01></li><li>所有列表中，几乎都需要用到条件检索，所以笔者也创建一个检索条件区，也作为母版供重复调用；<br><img src=img03.png alt=配图01></li></ul><h3 id=42-需求撰写>4.2 需求撰写</h3><h3 id=421-登录页>4.2.1 登录页</h3><p>登录页简版如以下原型图图；<br>右附笔者常用需求文档表，清晰明了，详见图中参考；<br>需求点的描述，可以从【数据】【逻辑】【交互】【其他】4个维度进行完整刻画；<br>较为复杂的流程，可以增设流程图，存放在4.1规划的文件夹中；<br><img src=img09.png alt=配图01></p><h3 id=422-订单模块>4.2.2 订单模块</h3><ul><li>订单模块有两个主要功能，1是列表，2是新增订单； 由于列表的数据，来源于新增的订单，所以先从新增开始着手；</li></ul><h3 id=4221-新增订单>4.2.2.1 新增订单</h3><ul><li>创建一个页面，用来描述新增订单的功能点；<br><img src=img02.png alt=配图01></li><li>那么问题来了？新增订单需要如何设计呢？<br>新增订单，需要记录哪些信息呢？卖出的商品，名字叫啥？单价多少？卖出多少件？实收多少钱？<br>认真想象，就会发现键盘输入的执行效率极低；<br>所以每个商品本身，都带有唯一编号（经常叫货号 / 商品ID），找找这个号，就可以快速查询到商品信息；<br>如图所示，通过【新增商品】按钮，把客户选择的商品信息加进来，通过【删除】键抹掉用户不要的商品；<br><img src=img04.png alt=配图01><br>以下为新增商品和数量示范：<br><img src=img11.png alt=配图01><br>对于重要操作，需要对使用者进行提示【已新增】【已删除】；<br>另外考虑到选购过程的数量，常常变化，可以设计 修改数量功能；</li></ul><p>选购商品和数量明确后，客户怎么把钱给我们？你扫我还是我扫你？<br>见图中新模块及右下角按钮<br>a、店内扫码枪扫描客户<br>b、客户扫描我们的收款二维码（本文不用此示范，因为存在管理风险，一般会在私人店铺使用）<br><img src=img08.png alt=配图01><br>如果早期考虑到，兼顾扫支付码和扫描商品ID，偏向于采用扫码枪解决方案；</p><ul><li>假设扫码支付成功，客户便可拿走相应货品；</li><li>那么，如果客户在我们支付过程中，发现余额不够支付，想取消购买其中两件商品呢？</li><li>或者媳妇儿发现老公在这偷偷买烟，还没来得及扫，就被揪走了耳朵，后面的订单咋整啊？</li><li>所以，增加取消收款功能，另行新建订单，如图（后期增加需求，在订单种直接减少其中两件商品，此版暂且不考虑）<br><img src=img10.png alt=配图01></li></ul><p>我们有了扫码枪，所以添加商品时，可连续扫描，来提高效率，那么应该如何触发扫码枪添加呢？<br>考虑到扫码枪的使用更加便利，所以笔者将扫码枪功能直接独立出来，使用按钮触发，见图；<br><img src=img07.png alt=配图01></p><p>通过不断挖掘和修改迭代，新增订单功能的原型图，已经基本完整；<br>页面搭建定型后，就可参考登录页的需求撰写表，进行需求打点和详细刻画啦~~</p><h3 id=5小结>5.小结</h3><p>以上便是一个完整的店仓系统1.0的整个设计过程，及首个子模块的原型和文档攥写过程；<br>跟着学到这里，就相当于，学会了print (‘Hello，world’)，甚至是print (‘Hello Mary，Im Jack，Nice to me you~’)；<br>接下来请开始举一反三了；<br>加油嗷嗷嗷，欢迎给笔者留言；</p></div><nav class=post-nav><a class=prev href=/posts/2021-04-02-user-portrait/>← 【札记】用户之间的天壤之别</a>
-<a class=next href=/posts/2021-03-06-trade-metrics/>【分析挖掘】交易项目常用指标及计算方法 →</a></nav></article></main><footer class=site-footer><div class=container>© Josey 的个人博客</div></footer></body></html>
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>【教程】手把手从0~1搭建ERP店仓系统 · Josey的博客_拥抱AI中</title>
+  <link rel="icon" type="image/svg+xml" href="/images/logo.svg">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+  <meta property="og:site_name" content="Josey的博客_拥抱AI中">
+  <meta property="og:title" content="【教程】手把手从0~1搭建ERP店仓系统 · Josey的博客_拥抱AI中">
+  <meta property="og:description" content="专注产品设计与数据科学，欢迎工作交流（V：Josey_here）。">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://joseygo.github.io/posts/2021-03-07-erp-store-system/">
+  <meta property="og:image" content="https://joseygo.github.io/images/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="【教程】手把手从0~1搭建ERP店仓系统 · Josey的博客_拥抱AI中">
+  <meta name="twitter:description" content="专注产品设计与数据科学，欢迎工作交流（V：Josey_here）。">
+  <meta name="twitter:image" content="https://joseygo.github.io/images/og-image.png">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="alternate" type="application/rss+xml" title="Josey的博客_拥抱AI中" href="/index.xml">
+</head>
+<body>
+  <header class="banner">
+  <div class="container">
+    
+    <div class="banner-inner">
+      <a href="/" class="site-logo-link" aria-label="Josey的博客_拥抱AI中">
+        <img class="site-logo" src="/images/logo.svg" alt="Josey的博客_拥抱AI中">
+      </a>
+      <div class="banner-text">
+        <h1 class="site-title"><a href="/">Josey的博客_拥抱AI中</a></h1>
+        <p class="tagline">专注产品设计与数据科学，欢迎工作交流（V：Josey_here）。</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+  <main class="container">
+    
+<article class="post-single">
+  <header class="post-header">
+    <h1 class="post-title">【教程】手把手从0~1搭建ERP店仓系统</h1>
+    
+  </header>
+  <div class="post-content">
+    <h3 id="1前言">1.前言</h3>
+<p>为了保持写文档的手感，这边撰写一个关于后端PM的入门教程；</p>
+<p>背景设置：公司由原来的B2B2C电商业务，为完善线下体验闭环，增设线下店仓，提供收货寄存服务、商品展示供选；<br>
+因此，完成本前置仓ERP系统配套；</p>
+<ul>
+<li>本教程为入门使用，不考虑版本迭代、多人合作问题；</li>
+<li>直奔需求分析、原型设计及需求说明撰写。</li>
+</ul>
+<p>系统性质：电商/新零售/O2O店仓ERP系统；<br>
+适用环境：PC浏览器；<br>
+使用人群：我司店员;</p>
+<p>下图为店仓实体承载的核心业务：<br>
+<img src="img12.png" alt="配图01"></p>
+<h3 id="2-根据核心业务进行相应挖掘后理出框架">2. 根据核心业务，进行相应挖掘后理出框架</h3>
+<pre tabindex="0"><code>坚持从用户角度开始分析，请各位认可这个出场顺序；
+</code></pre><h3 id="211-寄存列表及新建寄存">2.1.1 寄存列表及新建寄存</h3>
+<ul>
+<li>发现问题：用户进店，如何查询是否有寄存货品？</li>
+<li>解决方案：搭建【寄存列表】；</li>
+</ul>
+<h3 id="212-新增寄存">2.1.2 新增寄存</h3>
+<p>发现问题：那么查询的寄存货品，是从哪里来的呢？</p>
+<ul>
+<li>
+<p>解决方案：是送货到店的时候，录入的信息呀~<br>
+搭建【新增寄存】，用来录入寄存的到店时间、归属账户等；</p>
+</li>
+<li>
+<p>寄存的货品信息来源，其实有很多种思路可尝试，例如送货师傅操作，自动入库之类，此处不展开讲，以最简单常见的案例入门；</p>
+</li>
+</ul>
+<h3 id="221-货品列表">2.2.1 货品列表</h3>
+<ul>
+<li>发现问题：用户想买26个箱 位于 A区5号柜第2排上的牛奶，前置仓里有没有这么多现货？</li>
+<li>解决方案：搭建【货品列表】；用于记录货品信息，例如5号柜第2排，【货品名】为【伊利纯牛奶28袋装】，【条码值】是【78327893945】，这件货品在本店的可售【库存】一共是78件；</li>
+</ul>
+<h3 id="222-新增货品">2.2.2 新增货品</h3>
+<ul>
+<li>发现问题：那供查询的信息，是如何得到的呢？</li>
+<li>解决方案：可以通过【新增货品】功能来实现；</li>
+</ul>
+<h3 id="231-创建订单">2.3.1 创建订单</h3>
+<ul>
+<li>发现问题：假设流程顺畅，仓库里有26箱牛奶，根据用用户采购习惯，采用线下扫码支付，那么订单如何生成和统计？</li>
+<li>解决方案：需搭载【创建订单】功能；</li>
+</ul>
+<h3 id="232-订单列表">2.3.2 订单列表</h3>
+<ul>
+<li>发现问题：那么之前产生过哪些订单呢？这么重要的信息一定要能够查询呀</li>
+<li>解决方案：搭建【订单列表】功能；</li>
+</ul>
+<h3 id="241-补货申请">2.4.1 补货申请</h3>
+<ul>
+<li>发现问题：26箱牛奶被用户带走了，按照往常一天50箱的平均水准，库存很快就会影响营业额，如何处理？</li>
+<li>解决方案：搭建【补货申请】功能，向总体申请货品配送；</li>
+</ul>
+<h3 id="242-补货申请列表">2.4.2 补货申请列表</h3>
+<p>发现问题：相邻周期的补货需求往往相似，可以直接在系统里查询吗？这样就不需要每天一一统计了</p>
+<ul>
+<li>解决方案：搭建【补货列表】</li>
+</ul>
+<h3 id="251-入库">2.5.1 入库</h3>
+<ul>
+<li>发现问题：过了一天，公司送来了100箱牛奶；直接堆放到对应仓位，谁可能一直记得现在一共多少箱了？</li>
+<li>解决方案：搭建【入库】功能，用来记录库存的增加；</li>
+</ul>
+<h3 id="252-出库">2.5.2 出库</h3>
+<ul>
+<li>发现问题：又过了一天，附近的一个体验店打来电话，说有个用户着急要10箱牛奶，但是他们没有那么多，找我们调剂一下？</li>
+<li>解决方案：都是帮公司赚钱嘛，所以搭建【出库】功能，用来区分和订单售出不一样的库存减少；</li>
+</ul>
+<h3 id="26-账号登录退出">2.6 账号登录/退出</h3>
+<ul>
+<li>发现问题：体验店一般开在有人来往的地方，万一来个熊孩子，乱点系统搞幺蛾子怎么办？</li>
+<li>解决方案：搭建【账号登录/退出】功能，有店员看着就好了，不用时退出；</li>
+</ul>
+<h3 id="3-pc版还是手机版">3 PC版还是手机版</h3>
+<h3 id="31-前端形态">3.1 前端形态</h3>
+<p>门店一般配置1台电脑，从普适性、更新门槛、技术成熟等角度考虑，web系统为第一考虑方案；</p>
+<h3 id="32-系统框架尺寸">3.2 系统框架尺寸</h3>
+<p>根据查询相关资料，主流办公屏幕，真的可能出现较窄的屏幕，故功能将集中在中部，约1200px即可，或者找UI同学寻求意见；</p>
+<h3 id="33-设计顺序">3.3 设计顺序</h3>
+<p>结合功能的重要性和使用频率，抽象出以下几个模块：<br>
+【登录/退出】【订单管理】【货品管理】【出入库】【补货】<br>
+看到这里，恭喜你完成了基础需求分析环节，继续加油；</p>
+<h3 id="4-开始写prd">4 开始写PRD</h3>
+<h3 id="41-prd文件框架">4.1 PRD文件框架</h3>
+<p>打开AXURE，新建2个基础文件夹，分别用于存放业务流程图和原型页<br>
+<img src="img01.png" alt="配图01"></p>
+<ul>
+<li>在业务流程图文件夹中，新建1个页面用于存放流程图，便于程序们爸爸们理解业务，另1个文件夹放上一节总结的5个模块的内容，如下图；<br>
+<img src="img06.png" alt="配图01"></li>
+<li>创建一个母版，画出系统公共框架，以便重复调用<br>
+<img src="img05.png" alt="配图01"></li>
+<li>所有列表中，几乎都需要用到条件检索，所以笔者也创建一个检索条件区，也作为母版供重复调用；<br>
+<img src="img03.png" alt="配图01"></li>
+</ul>
+<h3 id="42-需求撰写">4.2 需求撰写</h3>
+<h3 id="421-登录页">4.2.1 登录页</h3>
+<p>登录页简版如以下原型图图；<br>
+右附笔者常用需求文档表，清晰明了，详见图中参考；<br>
+需求点的描述，可以从【数据】【逻辑】【交互】【其他】4个维度进行完整刻画；<br>
+较为复杂的流程，可以增设流程图，存放在4.1规划的文件夹中；<br>
+<img src="img09.png" alt="配图01"></p>
+<h3 id="422-订单模块">4.2.2 订单模块</h3>
+<ul>
+<li>订单模块有两个主要功能，1是列表，2是新增订单； 由于列表的数据，来源于新增的订单，所以先从新增开始着手；</li>
+</ul>
+<h3 id="4221-新增订单">4.2.2.1 新增订单</h3>
+<ul>
+<li>创建一个页面，用来描述新增订单的功能点；<br>
+<img src="img02.png" alt="配图01"></li>
+<li>那么问题来了？新增订单需要如何设计呢？<br>
+新增订单，需要记录哪些信息呢？卖出的商品，名字叫啥？单价多少？卖出多少件？实收多少钱？<br>
+认真想象，就会发现键盘输入的执行效率极低；<br>
+所以每个商品本身，都带有唯一编号（经常叫货号 / 商品ID），找找这个号，就可以快速查询到商品信息；<br>
+如图所示，通过【新增商品】按钮，把客户选择的商品信息加进来，通过【删除】键抹掉用户不要的商品；<br>
+<img src="img04.png" alt="配图01"><br>
+以下为新增商品和数量示范：<br>
+<img src="img11.png" alt="配图01"><br>
+对于重要操作，需要对使用者进行提示【已新增】【已删除】；<br>
+另外考虑到选购过程的数量，常常变化，可以设计 修改数量功能；</li>
+</ul>
+<p>选购商品和数量明确后，客户怎么把钱给我们？你扫我还是我扫你？<br>
+见图中新模块及右下角按钮<br>
+a、店内扫码枪扫描客户<br>
+b、客户扫描我们的收款二维码（本文不用此示范，因为存在管理风险，一般会在私人店铺使用）<br>
+<img src="img08.png" alt="配图01"><br>
+如果早期考虑到，兼顾扫支付码和扫描商品ID，偏向于采用扫码枪解决方案；</p>
+<ul>
+<li>假设扫码支付成功，客户便可拿走相应货品；</li>
+<li>那么，如果客户在我们支付过程中，发现余额不够支付，想取消购买其中两件商品呢？</li>
+<li>或者媳妇儿发现老公在这偷偷买烟，还没来得及扫，就被揪走了耳朵，后面的订单咋整啊？</li>
+<li>所以，增加取消收款功能，另行新建订单，如图（后期增加需求，在订单种直接减少其中两件商品，此版暂且不考虑）<br>
+<img src="img10.png" alt="配图01"></li>
+</ul>
+<p>我们有了扫码枪，所以添加商品时，可连续扫描，来提高效率，那么应该如何触发扫码枪添加呢？<br>
+考虑到扫码枪的使用更加便利，所以笔者将扫码枪功能直接独立出来，使用按钮触发，见图；<br>
+<img src="img07.png" alt="配图01"></p>
+<p>通过不断挖掘和修改迭代，新增订单功能的原型图，已经基本完整；<br>
+页面搭建定型后，就可参考登录页的需求撰写表，进行需求打点和详细刻画啦~~</p>
+<h3 id="5小结">5.小结</h3>
+<p>以上便是一个完整的店仓系统1.0的整个设计过程，及首个子模块的原型和文档攥写过程；<br>
+跟着学到这里，就相当于，学会了print (‘Hello，world’)，甚至是print (‘Hello Mary，Im Jack，Nice to me you~’)；<br>
+接下来请开始举一反三了；<br>
+加油嗷嗷嗷，欢迎给笔者留言；</p>
+
+  </div>
+  <nav class="post-nav">
+    <a class="prev" href="/posts/2021-04-02-user-portrait/">← 【札记】用户之间的天壤之别</a>
+    <a class="next" href="/posts/2021-03-06-trade-metrics/">【分析挖掘】交易项目常用指标及计算方法 →</a>
+  </nav>
+</article>
+
+  </main>
+  <footer class="site-footer">
+    <div class="container">© Josey 的个人博客</div>
+  </footer>
+  <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id:"3RGcpzV2pDe9mUzU",ck:"3RGcpzV2pDe9mUzU"})</script>
+</body>
+</html>

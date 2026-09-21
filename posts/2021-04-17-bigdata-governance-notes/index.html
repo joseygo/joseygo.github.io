@@ -1,1 +1,144 @@
-<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>【大白话】大数据治理，给需要扫盲的同学准备的 · Josey的博客_拥抱AI中</title><link rel=icon type=image/svg+xml href=/images/logo.svg><link rel="shortcut icon" href=/favicon.ico><link rel=apple-touch-icon href=/images/apple-touch-icon.png><meta property="og:site_name" content="Josey的博客_拥抱AI中"><meta property="og:title" content="【大白话】大数据治理，给需要扫盲的同学准备的 · Josey的博客_拥抱AI中"><meta property="og:description" content="专注产品设计与数据科学，欢迎工作交流（V：Josey_here）。"><meta property="og:type" content="article"><meta property="og:url" content="https://joseygo.github.io/posts/2021-04-17-bigdata-governance-notes/"><meta property="og:image" content="https://joseygo.github.io/images/og-image.png"><meta name=twitter:card content="summary_large_image"><meta name=twitter:title content="【大白话】大数据治理，给需要扫盲的同学准备的 · Josey的博客_拥抱AI中"><meta name=twitter:description content="专注产品设计与数据科学，欢迎工作交流（V：Josey_here）。"><meta name=twitter:image content="https://joseygo.github.io/images/og-image.png"><link rel=stylesheet href=/css/style.css><link rel=alternate type=application/rss+xml title=Josey的博客_拥抱AI中 href=/index.xml></head><body><header class=banner><div class=container><div class=banner-inner><a href=/ class=site-logo-link aria-label=Josey的博客_拥抱AI中><img class=site-logo src=/images/logo.svg alt=Josey的博客_拥抱AI中></a><div class=banner-text><h1 class=site-title><a href=/>Josey的博客_拥抱AI中</a></h1><p class=tagline>专注产品设计与数据科学，欢迎工作交流（V：Josey_here）。</p></div></div></div></header><main class=container><article class=post-single><header class=post-header><h1 class=post-title>【大白话】大数据治理，给需要扫盲的同学准备的</h1></header><div class=post-content><blockquote><p>声明<br>本文仅整理给需要了解的同学，从业人士想要的更多细节，统统没有；<br>本文以常聊的HADOOP生态纯白话为主，就不扯Postgre、Oracl这些了；<br>内容整理出视频教程和社区，如有手误，烦请指正哦；</p></blockquote><h3 id=1-是什么>1. 是什么？</h3><p>目前，大家的意思，主要是指<br><em><strong>通过管理大体量数据，更好更快的满足数据查询；</strong></em></p><h3 id=2-为什么举几个关键点>2. 为什么？举几个关键点</h3><h3 id=21-查数据太费劲>2.1 查数据太费劲</h3><p>主要的原因是，我们平时用MySQL数据库，增加、修改、查询用得更多；<br>但，已经有很多数据时，用老法子的话，查询一次几天过去了，还会死给你看；</p><p>极端例子意会一下：</p><p>你问你爸：能不能帮我问问老师，我的同桌小明住哪？然后把我向他借的课本还他？<br>你爸：好呀宝贝；</p><p>你又问：爸爸，我的同桌小明的外婆家，养了只叫小金的金毛狗。<br>我超喜欢小金，小金今天中午十二点在干什么？前天中午十二点呢？大前天中午十二点呢？<br>这些天分别吃了哪些品牌的狗粮？<br>每个牌子分别吃了多少克？<br>你爸：？</p><h3 id=22-又要好又要省钱>2.2 又要好又要省钱</h3><p>如果想要那么好的性能，那就需要很好的设备呀，可是好设备好贵好贵好贵啊；<br>那么，我们用多台<strong>廉价设备</strong>，来顶一台<strong>高配置设备</strong>；<br>就是三个臭皮匠顶个诸葛亮，哦不对，这叫 <strong>分布式</strong>，每个臭皮匠叫一个 <strong>节点</strong>；</p><h3 id=23-要兼容多种数据结构>2.3 要兼容多种数据结构</h3><p>3类结构的多种文件格式：<br>a、结构的，如 excel表里的数据，一行一列特别明；<br>b、半结构的，如<strong>杭州富婆联系方式.csv</strong>，行很明显，但是列不明显；<br>c、完全没结构的，如 <strong>老人地铁手机.jpg</strong>、<strong>快速生发洗头法.avi</strong>；</p><h3 id=3-思路怎么办>3. 思路：怎么办？</h3><h3 id=31-etl>3.1 ETL</h3><p><del>（1打开冰箱，2把大象放进去，3关上冰箱门）</del></p><h3 id=311-extract-抽取拿出来>3.1.1 Extract 抽取，拿出来</h3><p>把需要的数据源<strong>汇聚</strong>起来；</p><p>爸爸：我先直接添加了小明外婆的微信，让她尽快告诉我，小金这一天24小时分别在干什么；<br>再把小金生活区的摄像头影像找出来；<br>还要去把小金智能项圈的数据导出来，里面有小金的行程记录；<br>别的先放放，不够再加；</p><h3 id=312-transform-转换>3.1.2 Transform 转换</h3><p>把这些聊天记录、视频、行程 用工具，处理成容易查询的表，像excel一样的横平竖直的；</p><p>比如<br>相对细致的1个表：今天，小金7点吃了200g比瑞吉的狗粮，8点出去遛弯，9点和柯基犬 布丁玩了一会儿；</p><p>相对笼统的1个表：今年5月，小金一共吃了5kg狗粮，其中包含2个品牌，一共遛弯812个小时，睡觉365小时，和柯基犬布丁玩了18次共27个小时；</p><p>对应的是 不同<strong>详细程度</strong>的<strong>dwd</strong>层表和<strong>dws</strong>层表</p><p>另外：外婆最近做了奇怪的梦，内容是：小金今天19点，在做物理实验，然后发明了电灯。<br>这是明显的脏数据会被处理掉，不会被整理进去；</p><h3 id=313-load-加载>3.1.3 Load 加载</h3><p>爸爸：我把上面处理出来的东西，记录好放起来；</p><h3 id=4-思路有了那有没有合适的工具>4 思路有了，那有没有合适的工具？</h3><p>有，不过上面也说了，是分布式的多台设备协同工作，所以也由一群人共同管理。<br>这里引入Hadoop生态内的所有组件，见图<br><img src=img01.png alt=配图01></p><p>4.1 mapreduce，MR<br>外援项目经理：看着活儿，给大伙儿分一下；<br>只懂小语种，比如<strong>德语</strong>；</p><p><strong>4.2 hive<br>MR的贴身翻译，把 <strong>英语</strong> 翻译成MR需要的 <strong>德语</strong> ；</strong></p><p><em><strong>主要解决海量数据存储与计算的问题；</strong></em><br>4.3 hbase<br>真社畜：可以去拿各种，还会算数的人；人家听项目经理MR的安排；<br>可以去看看小金每天吃多少狗粮的人；<br>不仅如此，还能计算 小金每个月吃了多少狗粮；</p><blockquote><p>所以整个过程是：<br>a、我们写 <strong>英语</strong> ，找Hive翻译；<br>b、Hive把 <strong>英语</strong> 翻译成 <strong>德语</strong>，传给项目经理MR；<br>c、MR get到 <strong>德语</strong>，安排hbase起床搬砖；</p></blockquote><p>注意：其实还有别的翻译，比如Impala和Presto；</p><p>4.4 HDFS<br>真的很像网管，就是提供硬件支持的那个<br>网管帮帮忙，我的硬盘咋一直响呢？<br>网管来帮看看，我的键盘咋输不了中文？</p><h3 id=5-总结>5 总结</h3><p>其实还有比HADOOP生态更强悍的，比如SPARK生态，但是人家的使用门槛更高些，比如说不能用<strong>英语</strong>翻译成SPARK用的小语种；</p><p>不是专门的从业人员，了解到这就够了吧；<br>是不是光记得杭州富婆了？</p><p>有兴趣的同学可以继续深挖；</p><p>如对您的理解有所帮助，感谢点赞、收藏；</p><p>本文如有勘误，烦请指出，非常感谢；</p><p>越努力越幸运~~；</p></div><nav class=post-nav><a class=next href=/posts/2021-04-14-koc-visualization-analysis/>【分析挖掘】素人网红出圈因素分析，及其应用 →</a></nav></article></main><footer class=site-footer><div class=container>© Josey 的个人博客</div></footer></body></html>
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>【大白话】大数据治理，给需要扫盲的同学准备的 · Josey的博客_拥抱AI中</title>
+  <link rel="icon" type="image/svg+xml" href="/images/logo.svg">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+  <meta property="og:site_name" content="Josey的博客_拥抱AI中">
+  <meta property="og:title" content="【大白话】大数据治理，给需要扫盲的同学准备的 · Josey的博客_拥抱AI中">
+  <meta property="og:description" content="专注产品设计与数据科学，欢迎工作交流（V：Josey_here）。">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://joseygo.github.io/posts/2021-04-17-bigdata-governance-notes/">
+  <meta property="og:image" content="https://joseygo.github.io/images/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="【大白话】大数据治理，给需要扫盲的同学准备的 · Josey的博客_拥抱AI中">
+  <meta name="twitter:description" content="专注产品设计与数据科学，欢迎工作交流（V：Josey_here）。">
+  <meta name="twitter:image" content="https://joseygo.github.io/images/og-image.png">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="alternate" type="application/rss+xml" title="Josey的博客_拥抱AI中" href="/index.xml">
+</head>
+<body>
+  <header class="banner">
+  <div class="container">
+    
+    <div class="banner-inner">
+      <a href="/" class="site-logo-link" aria-label="Josey的博客_拥抱AI中">
+        <img class="site-logo" src="/images/logo.svg" alt="Josey的博客_拥抱AI中">
+      </a>
+      <div class="banner-text">
+        <h1 class="site-title"><a href="/">Josey的博客_拥抱AI中</a></h1>
+        <p class="tagline">专注产品设计与数据科学，欢迎工作交流（V：Josey_here）。</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+  <main class="container">
+    
+<article class="post-single">
+  <header class="post-header">
+    <h1 class="post-title">【大白话】大数据治理，给需要扫盲的同学准备的</h1>
+    
+  </header>
+  <div class="post-content">
+    <blockquote>
+<p>声明<br>
+本文仅整理给需要了解的同学，从业人士想要的更多细节，统统没有；<br>
+本文以常聊的HADOOP生态纯白话为主，就不扯Postgre、Oracl这些了；<br>
+内容整理出视频教程和社区，如有手误，烦请指正哦；</p>
+</blockquote>
+<h3 id="1-是什么">1. 是什么？</h3>
+<p>目前，大家的意思，主要是指<br>
+<em><strong>通过管理大体量数据，更好更快的满足数据查询；</strong></em></p>
+<h3 id="2-为什么举几个关键点">2. 为什么？举几个关键点</h3>
+<h3 id="21-查数据太费劲">2.1 查数据太费劲</h3>
+<p>主要的原因是，我们平时用MySQL数据库，增加、修改、查询用得更多；<br>
+但，已经有很多数据时，用老法子的话，查询一次几天过去了，还会死给你看；</p>
+<p>极端例子意会一下：</p>
+<p>你问你爸：能不能帮我问问老师，我的同桌小明住哪？然后把我向他借的课本还他？<br>
+你爸：好呀宝贝；</p>
+<p>你又问：爸爸，我的同桌小明的外婆家，养了只叫小金的金毛狗。<br>
+我超喜欢小金，小金今天中午十二点在干什么？前天中午十二点呢？大前天中午十二点呢？<br>
+这些天分别吃了哪些品牌的狗粮？<br>
+每个牌子分别吃了多少克？<br>
+你爸：？</p>
+<h3 id="22-又要好又要省钱">2.2 又要好又要省钱</h3>
+<p>如果想要那么好的性能，那就需要很好的设备呀，可是好设备好贵好贵好贵啊；<br>
+那么，我们用多台<strong>廉价设备</strong>，来顶一台<strong>高配置设备</strong>；<br>
+就是三个臭皮匠顶个诸葛亮，哦不对，这叫 <strong>分布式</strong>，每个臭皮匠叫一个 <strong>节点</strong>；</p>
+<h3 id="23-要兼容多种数据结构">2.3 要兼容多种数据结构</h3>
+<p>3类结构的多种文件格式：<br>
+a、结构的，如 excel表里的数据，一行一列特别明；<br>
+b、半结构的，如<strong>杭州富婆联系方式.csv</strong>，行很明显，但是列不明显；<br>
+c、完全没结构的，如 <strong>老人地铁手机.jpg</strong>、<strong>快速生发洗头法.avi</strong>；</p>
+<h3 id="3-思路怎么办">3. 思路：怎么办？</h3>
+<h3 id="31-etl">3.1 ETL</h3>
+<p><del>（1打开冰箱，2把大象放进去，3关上冰箱门）</del></p>
+<h3 id="311-extract-抽取拿出来">3.1.1 Extract 抽取，拿出来</h3>
+<p>把需要的数据源<strong>汇聚</strong>起来；</p>
+<p>爸爸：我先直接添加了小明外婆的微信，让她尽快告诉我，小金这一天24小时分别在干什么；<br>
+再把小金生活区的摄像头影像找出来；<br>
+还要去把小金智能项圈的数据导出来，里面有小金的行程记录；<br>
+别的先放放，不够再加；</p>
+<h3 id="312-transform-转换">3.1.2 Transform 转换</h3>
+<p>把这些聊天记录、视频、行程 用工具，处理成容易查询的表，像excel一样的横平竖直的；</p>
+<p>比如<br>
+相对细致的1个表：今天，小金7点吃了200g比瑞吉的狗粮，8点出去遛弯，9点和柯基犬 布丁玩了一会儿；</p>
+<p>相对笼统的1个表：今年5月，小金一共吃了5kg狗粮，其中包含2个品牌，一共遛弯812个小时，睡觉365小时，和柯基犬布丁玩了18次共27个小时；</p>
+<p>对应的是 不同<strong>详细程度</strong>的<strong>dwd</strong>层表和<strong>dws</strong>层表</p>
+<p>另外：外婆最近做了奇怪的梦，内容是：小金今天19点，在做物理实验，然后发明了电灯。<br>
+这是明显的脏数据会被处理掉，不会被整理进去；</p>
+<h3 id="313-load-加载">3.1.3 Load 加载</h3>
+<p>爸爸：我把上面处理出来的东西，记录好放起来；</p>
+<h3 id="4-思路有了那有没有合适的工具">4 思路有了，那有没有合适的工具？</h3>
+<p>有，不过上面也说了，是分布式的多台设备协同工作，所以也由一群人共同管理。<br>
+这里引入Hadoop生态内的所有组件，见图<br>
+<img src="img01.png" alt="配图01"></p>
+<p>4.1 mapreduce，MR<br>
+外援项目经理：看着活儿，给大伙儿分一下；<br>
+只懂小语种，比如<strong>德语</strong>；</p>
+<p><strong>4.2 hive<br>
+MR的贴身翻译，把 <strong>英语</strong> 翻译成MR需要的 <strong>德语</strong> ；</strong></p>
+<p><em><strong>主要解决海量数据存储与计算的问题；</strong></em><br>
+4.3 hbase<br>
+真社畜：可以去拿各种，还会算数的人；人家听项目经理MR的安排；<br>
+可以去看看小金每天吃多少狗粮的人；<br>
+不仅如此，还能计算 小金每个月吃了多少狗粮；</p>
+<blockquote>
+<p>所以整个过程是：<br>
+a、我们写 <strong>英语</strong> ，找Hive翻译；<br>
+b、Hive把 <strong>英语</strong> 翻译成 <strong>德语</strong>，传给项目经理MR；<br>
+c、MR get到 <strong>德语</strong>，安排hbase起床搬砖；</p>
+</blockquote>
+<p>注意：其实还有别的翻译，比如Impala和Presto；</p>
+<p>4.4 HDFS<br>
+真的很像网管，就是提供硬件支持的那个<br>
+网管帮帮忙，我的硬盘咋一直响呢？<br>
+网管来帮看看，我的键盘咋输不了中文？</p>
+<h3 id="5-总结">5 总结</h3>
+<p>其实还有比HADOOP生态更强悍的，比如SPARK生态，但是人家的使用门槛更高些，比如说不能用<strong>英语</strong>翻译成SPARK用的小语种；</p>
+<p>不是专门的从业人员，了解到这就够了吧；<br>
+是不是光记得杭州富婆了？</p>
+<p>有兴趣的同学可以继续深挖；</p>
+<p>如对您的理解有所帮助，感谢点赞、收藏；</p>
+<p>本文如有勘误，烦请指出，非常感谢；</p>
+<p>越努力越幸运~~；</p>
+
+  </div>
+  <nav class="post-nav">
+    
+    <a class="next" href="/posts/2021-04-14-koc-visualization-analysis/">【分析挖掘】素人网红出圈因素分析，及其应用 →</a>
+  </nav>
+</article>
+
+  </main>
+  <footer class="site-footer">
+    <div class="container">© Josey 的个人博客</div>
+  </footer>
+  <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id:"3RGcpzV2pDe9mUzU",ck:"3RGcpzV2pDe9mUzU"})</script>
+</body>
+</html>
